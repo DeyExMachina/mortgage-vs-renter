@@ -1,0 +1,72 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage[hidelinks]{hyperref}
+
+\title{Methodology}
+\author{Dey Ex Machina}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Objective}
+This document compares two financial strategies over the mortgage horizon:
+\begin{enumerate}
+ \item buying a house and paying mortgage-related cash flows (homeowner), and 
+ \item renting and investing the difference in cash flows (renter). 
+\end{enumerate}
+ 
+It answers the question: "What happens to my money if, instead of buying a house, I rent and invest?" The comparison evaluates final net worth at time T for each strategy, accounting for house price growth, rent inflation, mortgage payments, down payment, and the renter's investment returns.
+For the rest of the paper we call \textbf{Bob the homeowner and Alice the renter}.
+
+\section{Inputs}
+
+
+\begin{itemize}
+\item $H_0$, the value of the house at the time of purchase
+\item D, the mortgage down payment (Typically 20\%)
+\item $r_H$, the inflation of the house
+\item $C^{Bob}_t$, the cash flow paid by Bob at time t. this can be principal payment, interest, etc...
+\item $C^{Alice}_t$, the rent paid by Alice at time t
+\item $r_R$, the inflation Alice rent
+\item $r_I$, the return on investment for Alice
+\item T, the expiry of the mortgage
+\end{itemize}
+
+
+\section{Methodology}
+
+\subsection{Bob - The Homeowner}
+
+Bob networth at maturity is simply the price of his house at the end of the mortgage:
+
+$$V_{Bob}(T) = H_0 \cdot (1+r_H)^T$$
+
+Before maturity, Bob networth is the value of his house minus the outstanding balance.
+$$V_{Bob}(t) = H_0 \cdot (1+r_H)^t - \underbrace{P^{Bob}_t}_{\text{remaining principal balance}}$$
+
+\subsection{Alice - The Renter}
+For a fair comparison, we assume spends exactly what Bob would pay for his mortgage related cash flows.
+
+At time 0, Alice has only her down payment D as initial investment:
+$$V_{Alice}(0) = D $$
+At each time step, Alice networth is updated based on her cash flows and investment returns.
+There are two cases to consider:
+\begin{itemize}
+ \item If for a given month, Bob cash flow is higher than Alice rent, Alice pays her rent and invests the remaining cash at a rate $r_I$.
+ \item If for a given month, Alice rent is higher than Bob cash flow, Alice sells from her investments to make for the rent payments
+\end{itemize}
+$$V_{Alice}(t+1) = V_{Alice}(t)  \cdot (1+r_I)^{\frac{1}{12}}  + \Big( C^{Bob}_{t+1} - C^{Alice}_{t+1} \Big) $$
+
+Because we assume the rent of Alice increase at a rate $r_R$:
+$$V_{Alice}(t+1) = V_{Alice}(t)  \cdot (1+r_I)^{\frac{1}{12}}  + \Big( C^{Bob}_{t+1} - C^{Alice}_{0} \cdot (1+r_R)^{t+1} \Big) $$
+
+
+
+
+\end{document}
+
